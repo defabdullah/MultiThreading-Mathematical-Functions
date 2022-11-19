@@ -1,50 +1,122 @@
-#include "functions.h"
+#include "main.h"
 
-
-int min(int arr[]){
-    int size = sizeof(arr)/sizeof(int);
-    return *std::min_element(arr, arr + size);
+void *min(void *arr){
+    double *min=(double*)malloc(sizeof(double));
+    /**min = MAX_NUMBER;
+    for(int i=0;i<size;i++){
+        if(*((int*)arr+i)<*min){
+            *min = (double)(((int*)arr)[i]);
+        }
+    }*/
+    *min=((int*)arr)[0];
+    return (void*)min;
 }
 
-int max(int arr[]){
-    int size = sizeof(arr)/sizeof(int);
-    return *std::max_element(arr, arr + size);
+void *max(void *arr){
+    double *max=(double*)malloc(sizeof(double));
+    /**max = MIN_NUMBER;
+    for(int i=0;i<size;i++){
+        if(*((int*)arr+i)>*max){
+            *max = ((int*)arr)[i];
+        }
+    }*/
+    *max=((int*)arr)[size-1];
+    return (void*)max;
 }
 
-int range(int arr[]){
-    return max(arr)-min(arr);
+void *range(void *arr){
+    double* res;
+    res=(double*)malloc(sizeof(double));
+    *res= *(double*)max(arr) - *(double*)min(arr);
+    return (void*)res;
 }
 
-int mode(int arr[]){
-    return 0;
+void *mode(void *arr){
+    double* res;
+    res=(double*)malloc(sizeof(double));
+    std::map<int,int> freq;
+    for(int i=0;i<size;i++){
+        freq[((int*)arr)[i]]++;
+    }
+    int mostFreq=0,index=0;
+    for(auto keyValue:freq){
+        if(keyValue.second>mostFreq){
+            index=keyValue.first;
+            mostFreq=keyValue.second;
+        }
+    }
+    *res=index;
+    return (void*)res;
+
 }
 
-int median(int arr[]){
+void *median(void *arr){
+    double* res;
+    res=(double*)malloc(sizeof(double));
     
-    return 0;
+    double med=0;
+    if(size%2==1){
+        med= ((int*)arr)[size/2];
+    }
+    else{
+        med=(((int*)arr)[size/2]*1.0 + ((int*)arr)[size/2]*1.0)/2;
+    }
+
+    *res=med;
+    return (void*)res;
 }
 
-int sum(int arr[]){
-    
-    return 0;
+void *sum(void *arr){
+    double* res;
+    res=(double*)malloc(sizeof(double));
+
+    double sum=0;
+    for(int i=0;i<size;i++){
+        sum+=*((int*)arr+i);
+    }
+
+    *res=sum;  
+    return (void*)res;
 }
 
-int arithmeticMean(int arr[]){
-    
-    return 0;
+void *arithmeticMean(void *arr){
+    double* res;
+    res=(double*)malloc(sizeof(double));
+    *res= *(double*)sum(arr)/size;
+    return (void*)res;
 }
 
-int harmonicMean(int arr[]){
-    
-    return 0;
+void *harmonicMean(void *arr){
+    double* res;
+    res=(double*)malloc(sizeof(double));
+
+    double sum=0;
+    for(int i=0;i<size;i++){
+        sum += 1.0 / *((int*)arr+i);
+    }
+
+    *res=size/sum;  
+    return (void*)res;
 }
 
-int standardDeviation(int arr[]){
+void *standardDeviation(void *arr){
+    double* res;
+    res=(double*)malloc(sizeof(double));
     
-    return 0;
+    double mean = *(double*)arithmeticMean(arr);
+    double sum=0;
+    for(int i=0;i<size;i++){
+        sum += ((*((int*)arr+i) - mean)*(*((int*)arr+i) - mean));
+    }
+    *res=sqrt(sum/size);
+    return (void*)res;
 }
 
-int interquartileRange(int arr[]){
+void *interquartileRange(void *arr){
+    double* res;
+    res=(double*)malloc(sizeof(double));
     
-    return 0;
+    int highIdx = 3*((size+1)/4),lowIdx=(size+1)/4;
+    *res = ((int*)arr)[highIdx]*1.0 - ((int*)arr)[lowIdx]*1.0;
+    return (void*)res;
 }
