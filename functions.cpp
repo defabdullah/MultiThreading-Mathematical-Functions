@@ -1,26 +1,34 @@
 #include "main.h"
+using namespace std;
+
+void *mySort(void *arr){
+    int *sort_arr=(int*)malloc(sizeof(int)*size);
+    for(int i=0;i<size;i++){
+        sort_arr[i]= *((int*)arr+i);
+    }
+    sort(sort_arr, sort_arr+size);
+    return sort_arr;
+}
 
 void *min(void *arr){
     double *min=(double*)malloc(sizeof(double));
-    /**min = MAX_NUMBER;
+    *min = MAX_NUMBER;
     for(int i=0;i<size;i++){
         if(*((int*)arr+i)<*min){
             *min = (double)(((int*)arr)[i]);
         }
-    }*/
-    *min=((int*)arr)[0];
+    }
     return (void*)min;
 }
 
 void *max(void *arr){
     double *max=(double*)malloc(sizeof(double));
-    /**max = MIN_NUMBER;
+    *max = MIN_NUMBER;
     for(int i=0;i<size;i++){
         if(*((int*)arr+i)>*max){
             *max = ((int*)arr)[i];
         }
-    }*/
-    *max=((int*)arr)[size-1];
+    }
     return (void*)max;
 }
 
@@ -51,15 +59,16 @@ void *mode(void *arr){
 }
 
 void *median(void *arr){
+    void *sort_arr=mySort(arr);
     double* res;
     res=(double*)malloc(sizeof(double));
     
     double med=0;
     if(size%2==1){
-        med= ((int*)arr)[size/2];
+        med= ((int*)sort_arr)[size/2];
     }
     else{
-        med=(((int*)arr)[size/2]*1.0 + ((int*)arr)[size/2]*1.0)/2;
+        med=(((int*)sort_arr)[size/2]*1.0 + ((int*)sort_arr)[size/2]*1.0)/2;
     }
 
     *res=med;
@@ -113,10 +122,38 @@ void *standardDeviation(void *arr){
 }
 
 void *interquartileRange(void *arr){
+    void *sort_arr=mySort(arr);
+
     double* res;
     res=(double*)malloc(sizeof(double));
     
     int highIdx = 3*((size+1)/4),lowIdx=(size+1)/4;
-    *res = ((int*)arr)[highIdx]*1.0 - ((int*)arr)[lowIdx]*1.0;
+    *res = ((int*)sort_arr)[highIdx]*1.0 - ((int*)sort_arr)[lowIdx]*1.0;
     return (void*)res;
+}
+
+void *minAndInterQuartileRange(void *arr){
+    dresults[0][0]=min(arr);
+    dresults[0][1]=interquartileRange(arr);
+    pthread_exit(0);
+}
+void *maxAndStandardDeviation(void *arr){
+    dresults[1][0]=max(arr);
+    dresults[1][1]=standardDeviation(arr);
+    pthread_exit(0);
+}
+void *rangeAndHarmonicMean(void *arr){
+    dresults[2][0]=range(arr);
+    dresults[2][1]=harmonicMean(arr);
+    pthread_exit(0);
+}
+void *modeAndArithmeticMean(void *arr){
+    dresults[3][0]=mode(arr);
+    dresults[3][1]=arithmeticMean(arr);
+    pthread_exit(0);
+}
+void *medianAndSum(void *arr){
+    dresults[4][0]=median(arr);
+    dresults[4][1]=sum(arr);
+    pthread_exit(0);
 }
