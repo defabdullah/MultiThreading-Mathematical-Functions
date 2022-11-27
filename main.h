@@ -14,27 +14,27 @@
 #define MIN_NUMBER 1000
 #define METHOD_NUMBER 10
 
-typedef void* (*met)(void *);
+typedef void* (*met)(void*);
 
+extern double results[10];
+extern int* arr;
 extern int size;
-extern void *min(void *arr);
-extern void *range(void *arr);
-extern void *mode(void *arr);
-extern void *median(void *arr);
-extern void *max(void *arr);
-extern void *sum(void *arr);
-extern void *arithmeticMean(void *arr);
-extern void *harmonicMean(void *arr);
-extern void *standardDeviation(void *arr);
-extern void *interquartileRange(void *arr);
 
-extern void *minAndInterQuartileRange(void *arr);
-extern void *maxAndStandardDeviation(void *arr);
-extern void *rangeAndHarmonicMean(void *arr);
-extern void *modeAndArithmeticMean(void *arr);
-extern void *medianAndSum(void *arr);
-void *mySort(void *arr);
+extern void *findMin(void* arg);
+extern void *findMax(void* arg);
+extern void *range(void* arg);
+extern void *mode(void* arg);
+extern void *median(void* arg);
+extern void *sum(void* arg);
+extern void *arithmeticMean(void* arg);
+extern void *harmonicMean(void* arg);
+extern void *standardDeviation(void* arg);
+extern void *interquartileRange(void* arg);
 
-extern void** dresults[5];
+extern void *minAndInterQuartileRange(void* arg);
+extern void *maxAndStandardDeviation(void* arg);
+extern void *rangeAndHarmonicMean(void* arg);
+extern void *modeAndArithmeticMean(void* arg);
+extern void *medianAndSum(void* arg);
 
 #endif
