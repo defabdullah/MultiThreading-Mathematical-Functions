@@ -2,13 +2,8 @@
 #define MAIN_H
 
 #include <stdlib.h>
-#include <time.h>
 #include <pthread.h>
-#include <iostream>
-#include <chrono>
 #include <bits/stdc++.h>
-#include <algorithm>
-#include <iterator>
 
 #define MAX_NUMBER 10000
 #define MIN_NUMBER 1000
